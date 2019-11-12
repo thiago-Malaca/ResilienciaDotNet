@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 services:
   splunk:
     build: ./dockers/splunk
@@ -19,12 +19,12 @@ services:
   #      - 7979:7979
   #   networks:
   #     - compose1
-  # servico_a:
-  #   build: ./ServicoA
-  #   ports:
-  #     - 5000:80
-  #   environment:
-  #       ASPNETCORE_ENVIRONMENT: Development
+  bacen:
+    build: ./Bacen
+    ports:
+      - 1001:80
+    volumes:
+      - ./Bacen/config:/app/config
     networks:
       - compose1
 networks:
