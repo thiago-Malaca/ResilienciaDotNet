@@ -3,7 +3,7 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build
 WORKDIR /app
 
-COPY ./ServicoA.csproj .
+COPY ./Resiliente.ServicoA.csproj .
 RUN dotnet restore
 
 COPY . .
@@ -14,4 +14,4 @@ WORKDIR /app
 COPY --from=build /app/out ./
 
 EXPOSE 80
-ENTRYPOINT ["dotnet", "ServicoA.dll"]
+ENTRYPOINT ["dotnet", "Resiliente.ServicoA.dll"]

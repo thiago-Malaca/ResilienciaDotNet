@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using ServicoA.Entities;
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.FeatureManagement;
 
-namespace ServicoA.Controllers
+using Resiliente.ServicoA.Entities;
+
+namespace Resiliente.ServicoA.Controllers
 {
     [ApiController]
     [Route("[controller]")]

@@ -1,6 +1,6 @@
 using System;
 
-namespace ServicoA.Entities
+namespace Resiliente.ServicoA.Entities
 {
     public class Cotacao
     {

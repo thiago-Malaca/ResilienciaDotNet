@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.FeatureManagement;
 
-namespace ServicoA
+namespace Resiliente.ServicoA
 {
     public class Startup
     {
