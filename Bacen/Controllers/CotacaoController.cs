@@ -57,7 +57,7 @@ namespace Bacen.Controllers
                 return true;
             }
 
-            Thread.Sleep((int) (tempo % 100) * 125);
+            Thread.Sleep((int) (tempo % 100) * 65);
             throw new System.Exception("Erro forçado!");
         }
 
@@ -83,7 +83,7 @@ namespace Bacen.Controllers
 
             if ((tempo / 10 % 10) == 2)
             {
-                Thread.Sleep((int) (tempo % 100) * 110);
+                Thread.Sleep((int) (tempo % 100) * 50);
                 throw new System.Exception("Erro de intermitente!");
             }
 
@@ -92,6 +92,8 @@ namespace Bacen.Controllers
 
         private async Task<IEnumerable<Cotacao>> sucesso()
         {
+            var tempo = tempoEmMs();
+            Thread.Sleep((int) (tempo % 100) * 11);
             var rng = new Random();
             return await Task.FromResult(Enumerable.Range(0, 2).Select(index => new Cotacao
             {
