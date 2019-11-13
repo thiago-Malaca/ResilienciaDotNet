@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.FeatureManagement;
 
+using Resiliente.ServicoA.Services;
+
 namespace Resiliente.ServicoA
 {
     public class Startup
@@ -19,6 +21,8 @@ namespace Resiliente.ServicoA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IBacenService, BacenService>();
+
             services.AddFeatureManagement();
 
             services.AddControllers();
