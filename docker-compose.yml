@@ -41,11 +41,18 @@ services:
     networks:
       - compose1
 ###################################################################################
-  resiliente_servico_a:
-    build: ./Resiliente.ServicoA
+  nao_resiliente_servico_a:
+    build: ./Nao.Resiliente.ServicoA
     ports:
       - 2001:80
     networks:
       - compose1
+  resiliente_servico_a:
+    build: ./Resiliente.ServicoA
+    ports:
+      - 2501:80
+    networks:
+      - compose1
+###################################################################################
 networks:
   compose1:
