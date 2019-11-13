@@ -13,12 +13,13 @@ services:
       - 8089:8089
     networks:
       - compose1
-  # hystrix:
-  #   image: kennedyoliveira/hystrix-dashboard
-  #   ports: 
-  #      - 7979:7979
-  #   networks:
-  #     - compose1
+###################################################################################
+  hystrix:
+    image: kennedyoliveira/hystrix-dashboard
+    ports: 
+       - 7979:7979
+    networks:
+      - compose1
 ###################################################################################
   nao_resiliente_bacen:
     build: ./Bacen
