@@ -19,8 +19,10 @@ services:
   #      - 7979:7979
   #   networks:
   #     - compose1
-  bacen:
+  nao_resiliente_bacen:
     build: ./Bacen
+    environment:
+        Serilog__Properties__Application: Nao.Resiliente.Bacen
     ports:
       - 1001:80
     volumes:
