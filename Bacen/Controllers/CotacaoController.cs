@@ -57,7 +57,7 @@ namespace Bacen.Controllers
                 return true;
             }
 
-            Thread.Sleep((int) (tempo % 100) * 65);
+            Thread.Sleep((int) (tempo % 100) + 5000);
             throw new System.Exception("Erro forçado!");
         }
 
@@ -69,21 +69,21 @@ namespace Bacen.Controllers
 
             var tempo = tempoEmMs();
 
-            if ((tempo / 10 % 25) == 0)
+            if ((tempo / 10 % 35) == 0)
             {
                 this.HttpContext.Response.StatusCode = 401;
                 return true;
             }
 
-            if ((tempo / 10 % 26) == 0)
+            if ((tempo / 10 % 46) == 0)
             {
                 this.HttpContext.Response.StatusCode = 403;
                 return true;
             }
 
-            if ((tempo / 10 % 10) == 2)
+            if ((tempo / 10 % 20) == 0)
             {
-                Thread.Sleep((int) (tempo % 100) * 50);
+                Thread.Sleep((int) (tempo % 100) + 5000);
                 throw new System.Exception("Erro de intermitente!");
             }
 
