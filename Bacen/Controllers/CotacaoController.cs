@@ -16,12 +16,10 @@ namespace Bacen.Controllers
     [Route("[controller]")]
     public class CotacaoController : ControllerBase
     {
-        private readonly ILogger<CotacaoController> _logger;
         private readonly IFeatureManager _featureManager;
 
-        public CotacaoController(ILogger<CotacaoController> logger, IFeatureManager featureManager)
+        public CotacaoController(IFeatureManager featureManager)
         {
-            _logger = logger;
             _featureManager = featureManager;
         }
 
@@ -98,7 +96,7 @@ namespace Bacen.Controllers
             return await Task.FromResult(Enumerable.Range(0, 2).Select(index => new Cotacao
             {
                 Data = DateTime.Now.AddDays(-index),
-                    Valor = rng.Next(5, 35) * 0.1 + 4.0,
+                    Valor = (decimal)(rng.Next(5, 35) * 0.01 + 4.0),
                     Moeda = "Dolar"
             }).ToArray());
         }
