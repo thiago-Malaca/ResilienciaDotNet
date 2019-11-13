@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Bacen.Entities;
@@ -27,11 +28,72 @@ namespace Bacen.Controllers
         [HttpGet]
         public async Task<IEnumerable<Cotacao>> Get()
         {
-            if (_featureManager.IsEnabled("FalhaTotal"))
+            if (falhaTotal() || falhaIntermitente())
+                return null;
+
+            return await sucesso();
+        }
+
+        private bool falhaTotal()
+        {
+            if (!_featureManager.IsEnabled("Tem_Falha_Total"))
+                return false;
+
+            var tempo = tempoEmMs();
+
+            if ((tempo / 10 % 25) == 0)
             {
-                throw new System.Exception("Erro forçado!");
+                this.HttpContext.Response.StatusCode = 401;
+                return true;
             }
 
+            if ((tempo / 10 % 26) == 0)
+            {
+                this.HttpContext.Response.StatusCode = 403;
+                return true;
+            }
+
+            if ((tempo / 10 % 100) == 0)
+            {
+                this.HttpContext.Response.StatusCode = 404;
+                return true;
+            }
+
+            Thread.Sleep((int) (tempo % 100) * 125);
+            throw new System.Exception("Erro forçado!");
+        }
+
+        private bool falhaIntermitente()
+        {
+
+            if (!_featureManager.IsEnabled("Tem_Falha_Intermitente"))
+                return false;
+
+            var tempo = tempoEmMs();
+
+            if ((tempo / 10 % 25) == 0)
+            {
+                this.HttpContext.Response.StatusCode = 401;
+                return true;
+            }
+
+            if ((tempo / 10 % 26) == 0)
+            {
+                this.HttpContext.Response.StatusCode = 403;
+                return true;
+            }
+
+            if ((tempo / 10 % 10) == 2)
+            {
+                Thread.Sleep((int) (tempo % 100) * 110);
+                throw new System.Exception("Erro de intermitente!");
+            }
+
+            return false;
+        }
+
+        private async Task<IEnumerable<Cotacao>> sucesso()
+        {
             var rng = new Random();
             return await Task.FromResult(Enumerable.Range(0, 2).Select(index => new Cotacao
             {
@@ -39,6 +101,12 @@ namespace Bacen.Controllers
                     Valor = rng.Next(5, 35) * 0.1 + 4.0,
                     Moeda = "Dolar"
             }).ToArray());
+        }
+
+        private long tempoEmMs()
+        {
+            var timeSpan = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0));
+            return (long) timeSpan.TotalMilliseconds;
         }
     }
 }
