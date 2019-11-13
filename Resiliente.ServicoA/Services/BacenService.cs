@@ -31,9 +31,9 @@ namespace Resiliente.ServicoA.Services
             return new Preco
             {
                 Data = cotacaoAtual.Data,
-                Cliente = "Fulano de Tal",
-                Valor = cotacaoAtual.Valor * fatorSpred,
-                Moeda = cotacaoAtual.Moeda
+                    Cliente = "Fulano de Tal",
+                    Valor = cotacaoAtual.Valor * fatorSpred,
+                    Moeda = cotacaoAtual.Moeda
             };
         }
 
@@ -41,10 +41,13 @@ namespace Resiliente.ServicoA.Services
         {
             var response = await _client.GetAsync("http://resiliente_bacen:1501/cotacao");
             if (response == null)
-                return null;
+                throw new System.Exception("Erro no serviço do bacen");
 
             var jsonString = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<List<Cotacao>>(jsonString);
+
+            if (result == null)
+                throw new System.Exception("Erro no serviço do bacen");
 
             return result;
         }
