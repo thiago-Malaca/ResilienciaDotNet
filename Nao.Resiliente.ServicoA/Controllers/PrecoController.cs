@@ -16,15 +16,10 @@ namespace Nao.Resiliente.ServicoA.Controllers
     [Route("[controller]")]
     public class PrecoController : ControllerBase
     {
-        private readonly ILogger<PrecoController> _logger;
-        private readonly IFeatureManager _featureManager;
-
         private readonly IBacenService _bacenService;
 
-        public PrecoController(ILogger<PrecoController> logger, IFeatureManager featureManager, IBacenService bacenService)
+        public PrecoController(IBacenService bacenService)
         {
-            _logger = logger;
-            _featureManager = featureManager;
             _bacenService = bacenService;
         }
 
