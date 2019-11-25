@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-
-using Microsoft.Extensions.Logging;
 
 using Newtonsoft.Json;
 
@@ -21,7 +19,7 @@ namespace Resiliente.ServicoA.Services
             _client = new HttpClient();
         }
 
-        public async Task<Preco> GetPrecificacaoAsync()
+        public async Task<Preco> PrecoHoje()
         {
             var lista = await listCotacaoAsync();
             var cotacaoAtual = lista[0];
@@ -34,6 +32,21 @@ namespace Resiliente.ServicoA.Services
                     Cliente = "Fulano de Tal",
                     Valor = cotacaoAtual.Valor * fatorSpred,
                     Moeda = cotacaoAtual.Moeda
+            };
+        }
+
+        public async Task<Preco> PrecoOntem()
+        {
+            var fatorSpred = await fatorSpredAsync();
+
+            Thread.Sleep(400);
+
+            return new Preco
+            {
+                Data = DateTime.Now.AddDays(-1),
+                    Cliente = "Fulano de Tal",
+                    Valor = (decimal)4.15 * fatorSpred,
+                    Moeda = "Dolar"
             };
         }
 

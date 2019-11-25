@@ -7,6 +7,8 @@ namespace Resiliente.ServicoA.Services
 {
     public interface IBacenService
     {
-        Task<Preco> GetPrecificacaoAsync();
+        Task<Preco> PrecoHoje();
+
+        Task<Preco> PrecoOntem();
     }
 }

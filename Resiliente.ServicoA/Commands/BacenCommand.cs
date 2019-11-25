@@ -26,7 +26,12 @@ namespace Resiliente.ServicoA.Commands
                 .Handle<Exception>()
                 .WaitAndRetryAsync(delay);
 
-            return await waitAndRetryPolicy.ExecuteAsync(async() => await _bacenService.GetPrecificacaoAsync());
+            return await waitAndRetryPolicy.ExecuteAsync(async() => await _bacenService.PrecoHoje());
+        }
+
+        protected override async Task<Preco> RunFallbackAsync()
+        {
+            return await _bacenService.PrecoOntem();
         }
     }
 }

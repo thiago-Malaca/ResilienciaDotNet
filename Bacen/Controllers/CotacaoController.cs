@@ -39,25 +39,8 @@ namespace Bacen.Controllers
 
             var tempo = tempoEmMs();
 
-            if ((tempo / 10 % 25) == 0)
-            {
-                this.HttpContext.Response.StatusCode = 401;
-                return true;
-            }
 
-            if ((tempo / 10 % 26) == 0)
-            {
-                this.HttpContext.Response.StatusCode = 403;
-                return true;
-            }
-
-            if ((tempo / 10 % 100) == 0)
-            {
-                this.HttpContext.Response.StatusCode = 404;
-                return true;
-            }
-
-            Thread.Sleep((int) (tempo % 100) + 5000);
+            Thread.Sleep((int) (tempo % 100) + 2500);
             throw new System.Exception("Erro forçado!");
         }
 
@@ -69,21 +52,9 @@ namespace Bacen.Controllers
 
             var tempo = tempoEmMs();
 
-            if ((tempo / 10 % 35) == 0)
-            {
-                this.HttpContext.Response.StatusCode = 401;
-                return true;
-            }
-
-            if ((tempo / 10 % 46) == 0)
-            {
-                this.HttpContext.Response.StatusCode = 403;
-                return true;
-            }
-
             if ((tempo / 10 % 20) == 0)
             {
-                Thread.Sleep((int) (tempo % 100) + 5000);
+                 Thread.Sleep((int) (tempo % 100) * 50 + 1500);
                 throw new System.Exception("Erro de intermitente!");
             }
 
@@ -93,12 +64,12 @@ namespace Bacen.Controllers
         private async Task<IEnumerable<Cotacao>> sucesso()
         {
             var tempo = tempoEmMs();
-            Thread.Sleep((int) (tempo % 100) * 11);
+            Thread.Sleep((int) (tempo % 50) + 550);
             var rng = new Random();
             return await Task.FromResult(Enumerable.Range(0, 2).Select(index => new Cotacao
             {
                 Data = DateTime.Now.AddDays(-index),
-                    Valor = (decimal)(rng.Next(5, 35) * 0.01 + 4.0),
+                    Valor = (decimal) (rng.Next(5, 35) * 0.01 + 4.0),
                     Moeda = "Dolar"
             }).ToArray());
         }
