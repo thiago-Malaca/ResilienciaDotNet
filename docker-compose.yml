@@ -1,5 +1,6 @@
 version: '3'
 services:
+###################################################################################
   splunk:
     build: ./dockers/splunk
     image: splunk
@@ -9,17 +10,12 @@ services:
         SPLUNK_PASSWORD: 5plunK99
     ports:
       - 8000:8000
-      - 8088:8088
-      - 8089:8089
-    networks:
-      - compose1
-###################################################################################
-  hystrix:
-    image: kennedyoliveira/hystrix-dashboard
-    ports: 
-       - 7979:7979
-    networks:
-      - compose1
+      # - 8088:8088
+      # - 8089:8089
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
 ###################################################################################
   nao_resiliente_bacen:
     build: ./Bacen
@@ -27,33 +23,109 @@ services:
         Serilog__Properties__Application: Nao.Resiliente.Bacen
     ports:
       - 1001:80
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
     volumes:
       - ./Bacen/config:/app/config
-    networks:
-      - compose1
+###################################################################################
   resiliente_bacen:
     build: ./Bacen
     environment:
         Serilog__Properties__Application: Resiliente.Bacen
     ports:
       - 1501:80
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
     volumes:
       - ./Bacen/config:/app/config
-    networks:
-      - compose1
 ###################################################################################
   nao_resiliente_servico_a:
     build: ./Nao.Resiliente.ServicoA
     ports:
       - 2001:80
-    networks:
-      - compose1
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+###################################################################################
   resiliente_servico_a:
     build: ./Resiliente.ServicoA
     ports:
       - 2501:80
-    networks:
-      - compose1
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
 ###################################################################################
-networks:
-  compose1:
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - 15672:15672
+      - 5672:5672
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+###################################################################################
+  config:
+    environment:
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    image: malaca/spring-cloud-config:Hoxton.RELEASE
+    restart: always
+    ports:
+      - 8888:8888
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+###################################################################################
+  eureka:
+    environment:
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    image: malaca/spring-cloud-eureka:Hoxton.RELEASE
+    restart: always
+    depends_on:
+      - config
+    ports:
+      - 8761:8761
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+###################################################################################
+  turbine:
+    environment:
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    image: malaca/spring-cloud-turbine:Hoxton.RELEASE
+    restart: always
+    depends_on:
+      - config
+      - eureka
+      - rabbitmq
+    ports:
+      - 8989:8989
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+###################################################################################
+  hystrix-dash:
+    environment:
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    image: malaca/spring-cloud-hystrix-dash:Hoxton.RELEASE
+    restart: always
+    depends_on:
+      - config
+      - eureka
+      - turbine
+    ports:
+      - 9999:9999
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
