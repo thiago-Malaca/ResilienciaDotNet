@@ -1,0 +1,31 @@
+[history/.dummy_history]
+version = 8.0.0
+modtime = 1576119659.555018000
+
+[ui-tour/search-tour]
+version = 8.0.0
+modtime = 1576119661.449177000
+
+[ui-prefs/search]
+version = 8.0.0
+modtime = 1576120151.052289000
+
+[datamodels/Data__No_Resiliente]
+version = 8.0.0
+modtime = 1576120309.808442000
+
+[models/Data__No_Resiliente]
+version = 8.0.0
+modtime = 1576120309.811761000
+
+[views/requisies_por_segundo]
+version = 8.0.0
+modtime = 1576120309.893242000
+
+[ui-tour/dashboards-tour%3Aenterprise]
+version = 8.0.0
+modtime = 1576120333.632974000
+
+[html/requisies_por_segundo_html]
+version = 8.0.0
+modtime = 1576120380.811547000
