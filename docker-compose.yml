@@ -10,8 +10,6 @@ services:
         SPLUNK_PASSWORD: 5plunK99
     ports:
       - 8000:8000
-      # - 8088:8088
-      # - 8089:8089
     logging:
       options:
         max-size: "10m"

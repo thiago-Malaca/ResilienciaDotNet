@@ -1,0 +1,127 @@
+{
+    "modelName": "Data__No_Resiliente",
+    "displayName": "Data - Não Resiliente",
+    "description": "",
+    "objectSummary": {
+        "Event-Based": 1,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "objectName": "RootObject",
+            "displayName": "1576120124.39",
+            "parentName": "BaseEvent",
+            "comment": "",
+            "fields": [
+                {
+                    "fieldName": "MessageTemplate",
+                    "owner": "RootObject",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "MessageTemplate",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "Properties.Application",
+                    "owner": "RootObject",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "Properties.Application",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "Properties.ElapsedMilliseconds",
+                    "owner": "RootObject",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "Properties.ElapsedMilliseconds",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "Properties.StatusCode",
+                    "owner": "RootObject",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "Properties.StatusCode",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "RootObject",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "RootObject",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "RootObject",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "_time",
+                    "owner": "RootObject",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "source=\"http:resiliencia_source\" \"Properties.Application\"=\"Nao.Resiliente.ServicoA\" MessageTemplate=\"{HostingRequestFinishedLog:l}\"",
+                    "owner": "RootObject"
+                }
+            ],
+            "lineage": "RootObject"
+        }
+    ],
+    "objectNameList": [
+        "RootObject"
+    ]
+}
