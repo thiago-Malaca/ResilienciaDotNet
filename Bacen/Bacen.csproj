@@ -8,6 +8,7 @@
     <PackageReference Include="Microsoft.FeatureManagement" Version="1.0.0-preview-009000001-1251" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
     <PackageReference Include="Serilog.Sinks.Splunk" Version="3.3.0" />
+    <PackageReference Include="Steeltoe.Extensions.Configuration.ConfigServerCore" Version="2.4.0" />
   </ItemGroup>
 
 </Project>

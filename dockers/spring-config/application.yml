@@ -1,0 +1,22 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/shared
+        vault:
+          port: 8200
+          host: vault
+          scheme: http
+          authentication: TOKEN
+          token: ${VAULT_DEV_ROOT_TOKEN_ID}
+          kv-version: 2
+  profiles:
+     active: native, vault
+  security:
+    user:
+      password: ${CONFIG_SERVICE_PASSWORD}
+server:
+  port: 8888

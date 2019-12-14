@@ -7,20 +7,30 @@ using Microsoft.Extensions.Hosting;
 
 using Serilog;
 
+using Steeltoe.Extensions.Configuration.ConfigServer;
+
 namespace Bacen
 {
     public class Program
     {
 
-        public static IConfiguration Configuration { get; } = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory() + "/config/")
-            .AddJsonFile("appsettings.json", optional : false, reloadOnChange : true)
-            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional : false, reloadOnChange : true)
-            .AddEnvironmentVariables()
-            .Build();
+        public static IConfiguration Configuration;
+
+        public static IConfiguration ConfigRefresh()
+        {
+            return new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory() + "/config/")
+                .AddJsonFile("appsettings.json", optional : false, reloadOnChange : true)
+                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional : false, reloadOnChange : true)
+                .AddEnvironmentVariables()
+                .AddConfigServer()
+                .Build();
+        }
 
         public static void Main(string[] args)
         {
+            Configuration = ConfigRefresh();
+
             /* Adicionado a estrutura do try/catch abaixo para captura os erros de inicialização,
                erros que normalmente geram dor de cabeça para resolver. */
             Log.Logger = new LoggerConfiguration()
@@ -48,6 +58,7 @@ namespace Bacen
             .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder.UseContentRoot(Directory.GetCurrentDirectory() + "/config/");
+                webBuilder.AddConfigServer();
                 webBuilder.UseStartup<Startup>();
             });
     }
