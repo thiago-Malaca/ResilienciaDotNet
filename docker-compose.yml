@@ -3,7 +3,7 @@ services:
 ###################################################################################
   splunk:
     build: ./dockers/splunk
-    image: splunk
+    # image: splunk
     environment:
         SPLUNK_START_ARGS: --accept-license --answer-yes
         SPLUNK_ENABLE_LISTEN: 9997
@@ -25,8 +25,6 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
-    volumes:
-      - ./Bacen/config:/app/config
 ###################################################################################
   resiliente_bacen:
     build: ./Bacen
@@ -38,8 +36,6 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
-    volumes:
-      - ./Bacen/config:/app/config
 ###################################################################################
   nao_resiliente_servico_a:
     build: ./Nao.Resiliente.ServicoA
@@ -71,9 +67,9 @@ services:
         max-file: "10"
 ###################################################################################
   config:
+    image: malaca/spring-cloud-config:Hoxton.RELEASE
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    image: malaca/spring-cloud-config:Hoxton.RELEASE
     restart: always
     ports:
       - 8888:8888
@@ -83,9 +79,9 @@ services:
         max-file: "10"
 ###################################################################################
   eureka:
+    image: malaca/spring-cloud-eureka:Hoxton.RELEASE
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    image: malaca/spring-cloud-eureka:Hoxton.RELEASE
     restart: always
     depends_on:
       - config
@@ -97,9 +93,9 @@ services:
         max-file: "10"
 ###################################################################################
   turbine:
+    image: malaca/spring-cloud-turbine:Hoxton.RELEASE
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    image: malaca/spring-cloud-turbine:Hoxton.RELEASE
     restart: always
     depends_on:
       - config
@@ -113,9 +109,9 @@ services:
         max-file: "10"
 ###################################################################################
   hystrix-dash:
+    image: malaca/spring-cloud-hystrix-dash:Hoxton.RELEASE
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    image: malaca/spring-cloud-hystrix-dash:Hoxton.RELEASE
     restart: always
     depends_on:
       - config
@@ -127,3 +123,27 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+###################################################################################
+  vault:
+    image: vault
+    environment: 
+      VAULT_DEV_ROOT_TOKEN_ID: $VAULT_DEV_ROOT_TOKEN_ID
+    restart: always
+    ports:
+      - 8200:8200
+###################################################################################
+  vault-script:
+    image: vault
+    environment: 
+      VAULT_DEV_ROOT_TOKEN_ID: $VAULT_DEV_ROOT_TOKEN_ID
+      VAULT_ADDR: "http://vault:8200"
+    command:
+      - /bin/sh 
+      - -c
+      - |
+        while ! $$(vault status &> /dev/null); do echo "Trying to connect to vault"; sleep 2; done
+        sleep 5
+        vault login $${VAULT_DEV_ROOT_TOKEN_ID}
+        vault kv put secret/flags_erros 0_erro_timeout=0 1_erro_intermitente=0 2_erro_total=0
+    depends_on: 
+      - vault
