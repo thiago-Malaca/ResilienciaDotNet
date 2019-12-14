@@ -12,9 +12,6 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/out ./
-COPY --from=build /app/entrypoint.sh ./
-
-RUN chmod +x ./entrypoint.sh
 
 EXPOSE 80
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["dotnet", "Resiliente.ServicoA.dll"]

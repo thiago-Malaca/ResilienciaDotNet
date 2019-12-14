@@ -21,15 +21,12 @@ namespace Resiliente.ServicoA
 
         public static void Main(string[] args)
         {
+            LogConfiguration();
+
             /* Adicionado a estrutura do try/catch abaixo para captura os erros de inicialização,
                erros que normalmente geram dor de cabeça para resolver. */
-            Log.Logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(Configuration)
-                .CreateLogger();
-
             try
             {
-                Log.Information("Starting up");
                 CreateHostBuilder(args).Build().Run();
             }
             catch (Exception ex)
@@ -40,6 +37,20 @@ namespace Resiliente.ServicoA
             {
                 Log.CloseAndFlush();
             }
+        }
+
+        public static void LogConfiguration() {
+            var msg = "Starting up";
+
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                .CreateLogger();
+            Log.Information(msg);
+
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(Configuration)
+                .CreateLogger();
+            Log.Information(msg);
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
