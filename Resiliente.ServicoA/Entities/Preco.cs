@@ -11,5 +11,7 @@ namespace Resiliente.ServicoA.Entities
         public string Moeda { get; set; }
 
         public string Cliente { get; set; }
+
+        public string Ref { get; set; }
     }
 }

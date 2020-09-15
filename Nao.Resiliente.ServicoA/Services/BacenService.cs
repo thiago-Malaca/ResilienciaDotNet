@@ -39,7 +39,7 @@ namespace Nao.Resiliente.ServicoA.Services
 
         private async Task<List<Cotacao>> listCotacaoAsync()
         {
-            var response = await _client.GetAsync("http://nao_resiliente_bacen:80/cotacao");
+            var response = await _client.GetAsync("http://nao_resiliente_bacen:1001/cotacao");
             if (response == null)
                 throw new System.Exception("Erro no serviço do bacen");
 

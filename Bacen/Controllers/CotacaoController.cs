@@ -5,10 +5,9 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Bacen.Entities;
-using Bacen.Extensions;
 
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.FeatureManagement;
 
 namespace Bacen.Controllers
@@ -17,11 +16,11 @@ namespace Bacen.Controllers
     [Route("[controller]")]
     public class CotacaoController : ControllerBase
     {
-        private readonly IConfiguration _config;
+        private readonly IFeatureManager _featureManager;
 
         public CotacaoController(IFeatureManager featureManager)
         {
-            _config = Program.ConfigRefresh();
+            _featureManager = featureManager;
         }
 
         [HttpGet]
@@ -35,7 +34,7 @@ namespace Bacen.Controllers
 
         private bool falhaTotal()
         {
-            if (_config["2_erro_total"].ParseInt() < 1)
+            if (!_featureManager.IsEnabled("Tem_Falha_Total"))
                 return false;
 
             var tempo = tempoEmMs();
@@ -46,14 +45,14 @@ namespace Bacen.Controllers
 
         private bool falhaIntermitente()
         {
-            if (_config["1_erro_intermitente"].ParseInt() < 1)
+            if (!_featureManager.IsEnabled("Tem_Falha_Intermitente"))
                 return false;
 
             var tempo = tempoEmMs();
 
             if ((tempo / 10 % 20) == 0)
             {
-                Thread.Sleep((int) (tempo % 100) * 50 + 1500);
+                 Thread.Sleep((int) (tempo % 100) * 10 + 150);
                 throw new System.Exception("Erro de intermitente!");
             }
 

@@ -68,6 +68,42 @@ styles in <div> tags, similar to Bootstrap's grid system.
                 </div>
             </div>
         </div>
+        <div id="panel1" class="dashboard-cell" style="width: 100%;">
+            <div class="dashboard-panel clearfix">
+                <h2 class="panel-title">Não Resiliente (Bacen)</h2>
+                
+                <div class="panel-element-row">
+                    <div id="element1" class="dashboard-element chart" style="width: 100%">
+                        <div class="panel-body"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="row2" class="dashboard-row dashboard-row1">
+        <div id="panel1" class="dashboard-cell" style="width: 100%;">
+            <div class="dashboard-panel clearfix">
+                <h2 class="panel-title">Resiliente</h2>
+                
+                <div class="panel-element-row">
+                    <div id="element1" class="dashboard-element chart" style="width: 100%">
+                        <div class="panel-body"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="panel1" class="dashboard-cell" style="width: 100%;">
+            <div class="dashboard-panel clearfix">
+                <h2 class="panel-title">Resiliente (Bacen)</h2>
+                
+                <div class="panel-element-row">
+                    <div id="element1" class="dashboard-element chart" style="width: 100%">
+                        <div class="panel-body"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -218,10 +254,10 @@ require([
         
 var search1 = new SearchManager({
             "id": "search1",
-            "earliest_time": "rt-30m",
+            "earliest_time": "rt-1m",
             "latest_time": "rt",
             "sample_ratio": 1,
-            "search": "| pivot Data__No_Resiliente RootObject count(RootObject) AS rps SPLITROW _time AS _time PERIOD second SORT 0 _time ROWSUMMARY 0 COLSUMMARY 0 SHOWOTHER 1",
+            "search": "| pivot Data__No_Resiliente RootObject count(RootObject) AS rps SPLITROW _time AS _time PERIOD second SPLITCOL Properties.StatusCode SORT 0 _time ROWSUMMARY 0 COLSUMMARY 0 SHOWOTHER 1",
             "status_buckets": 0,
             "cancelOnUnload": true,
             "app": utils.getCurrentApp(),
@@ -232,6 +268,53 @@ var search1 = new SearchManager({
             "runWhenTimeIsUndefined": false
         }, {tokens: true, tokenNamespace: "submitted"});
 
+var search2 = new SearchManager({
+    "id": "search2",
+    "earliest_time": "rt-1m",
+    "latest_time": "rt",
+    "sample_ratio": 1,
+    "search": "| pivot Data__No_Resiliente RootObject count(RootObject) AS rps SPLITROW _time AS _time PERIOD second SPLITCOL Properties.StatusCode SORT 0 _time ROWSUMMARY 0 COLSUMMARY 0 SHOWOTHER 1",
+    "status_buckets": 0,
+    "cancelOnUnload": true,
+    "app": utils.getCurrentApp(),
+    "auto_cancel": 90,
+    "preview": true,
+    "tokenDependencies": {
+    },
+    "runWhenTimeIsUndefined": false
+}, {tokens: true, tokenNamespace: "submitted"});
+
+var search3 = new SearchManager({
+    "id": "search3",
+    "earliest_time": "rt-1m",
+    "latest_time": "rt",
+    "sample_ratio": 1,
+    "search": "| pivot Data__No_Resiliente RootObject count(RootObject) AS rps SPLITROW _time AS _time PERIOD second SPLITCOL Properties.StatusCode SORT 0 _time ROWSUMMARY 0 COLSUMMARY 0 SHOWOTHER 1",
+    "status_buckets": 0,
+    "cancelOnUnload": true,
+    "app": utils.getCurrentApp(),
+    "auto_cancel": 90,
+    "preview": true,
+    "tokenDependencies": {
+    },
+    "runWhenTimeIsUndefined": false
+}, {tokens: true, tokenNamespace: "submitted"});
+
+var search4 = new SearchManager({
+    "id": "search4",
+    "earliest_time": "rt-1m",
+    "latest_time": "rt",
+    "sample_ratio": 1,
+    "search": "| pivot Data__No_Resiliente RootObject count(RootObject) AS rps SPLITROW _time AS _time PERIOD second SPLITCOL Properties.StatusCode SORT 0 _time ROWSUMMARY 0 COLSUMMARY 0 SHOWOTHER 1",
+    "status_buckets": 0,
+    "cancelOnUnload": true,
+    "app": utils.getCurrentApp(),
+    "auto_cancel": 90,
+    "preview": true,
+    "tokenDependencies": {
+    },
+    "runWhenTimeIsUndefined": false
+}, {tokens: true, tokenNamespace: "submitted"});
 
         //
         // SPLUNK LAYOUT
@@ -264,14 +347,17 @@ var search1 = new SearchManager({
             "resizable": true,
             "charting.axisLabelsX.majorLabelStyle.overflowMode": "ellipsisNone",
             "charting.axisLabelsX.majorLabelStyle.rotation": "0",
-            "charting.axisTitleX.visibility": "visible",
+            "charting.axisLabelsX.majorUnit": "5",
+            "charting.axisTitleX.visibility": "collapsed",
+            "charting.axisTitleY.visibility": "rps",
             "charting.axisTitleY.visibility": "visible",
             "charting.axisTitleY2.visibility": "visible",
             "charting.axisX.abbreviation": "none",
             "charting.axisX.scale": "linear",
             "charting.axisY.abbreviation": "none",
             "charting.axisY.scale": "linear",
-            "charting.axisY2.abbreviation": "none",
+            "charting.axisY2.abbreviation": "auto",
+            "charting.axisY2.maximumNumber": "20",
             "charting.axisY2.enabled": "0",
             "charting.axisY2.scale": "inherit",
             "charting.chart": "column",
@@ -281,14 +367,14 @@ var search1 = new SearchManager({
             "charting.chart.nullValueMode": "gaps",
             "charting.chart.showDataLabels": "none",
             "charting.chart.sliceCollapsingThreshold": "0.01",
-            "charting.chart.stackMode": "default",
+            "charting.chart.stackMode": "stacked",
             "charting.chart.style": "shiny",
             "charting.drilldown": "none",
             "charting.layout.splitSeries": "0",
             "charting.layout.splitSeries.allowIndependentYRanges": "0",
             "charting.legend.labelStyle.overflowMode": "ellipsisMiddle",
             "charting.legend.mode": "standard",
-            "charting.legend.placement": "none",
+            "charting.legend.placement": "right",
             "charting.lineWidth": "2",
             "trellis.enabled": "0",
             "trellis.scales.shared": "1",
@@ -297,6 +383,129 @@ var search1 = new SearchManager({
             "el": $('#element1')
         }, {tokens: true, tokenNamespace: "submitted"}).render();
 
+        var element2 = new ChartElement({
+            "id": "element2",
+            "resizable": true,
+            "charting.axisLabelsX.majorLabelStyle.overflowMode": "ellipsisNone",
+            "charting.axisLabelsX.majorLabelStyle.rotation": "0",
+            "charting.axisLabelsX.majorUnit": "5",
+            "charting.axisTitleX.visibility": "collapsed",
+            "charting.axisTitleY.visibility": "rps",
+            "charting.axisTitleY.visibility": "visible",
+            "charting.axisTitleY2.visibility": "visible",
+            "charting.axisX.abbreviation": "none",
+            "charting.axisX.scale": "linear",
+            "charting.axisY.abbreviation": "none",
+            "charting.axisY.scale": "linear",
+            "charting.axisY2.abbreviation": "auto",
+            "charting.axisY2.maximumNumber": "20",
+            "charting.axisY2.enabled": "0",
+            "charting.axisY2.scale": "inherit",
+            "charting.chart": "column",
+            "charting.chart.bubbleMaximumSize": "50",
+            "charting.chart.bubbleMinimumSize": "10",
+            "charting.chart.bubbleSizeBy": "area",
+            "charting.chart.nullValueMode": "gaps",
+            "charting.chart.showDataLabels": "none",
+            "charting.chart.sliceCollapsingThreshold": "0.01",
+            "charting.chart.stackMode": "stacked",
+            "charting.chart.style": "shiny",
+            "charting.drilldown": "none",
+            "charting.layout.splitSeries": "0",
+            "charting.layout.splitSeries.allowIndependentYRanges": "0",
+            "charting.legend.labelStyle.overflowMode": "ellipsisMiddle",
+            "charting.legend.mode": "standard",
+            "charting.legend.placement": "right",
+            "charting.lineWidth": "2",
+            "trellis.enabled": "0",
+            "trellis.scales.shared": "1",
+            "trellis.size": "medium",
+            "managerid": "search1",
+            "el": $('#element1')
+        }, {tokens: true, tokenNamespace: "submitted"}).render();
+
+        var element3 = new ChartElement({
+            "id": "element3",
+            "resizable": true,
+            "charting.axisLabelsX.majorLabelStyle.overflowMode": "ellipsisNone",
+            "charting.axisLabelsX.majorLabelStyle.rotation": "0",
+            "charting.axisLabelsX.majorUnit": "5",
+            "charting.axisTitleX.visibility": "collapsed",
+            "charting.axisTitleY.visibility": "rps",
+            "charting.axisTitleY.visibility": "visible",
+            "charting.axisTitleY2.visibility": "visible",
+            "charting.axisX.abbreviation": "none",
+            "charting.axisX.scale": "linear",
+            "charting.axisY.abbreviation": "none",
+            "charting.axisY.scale": "linear",
+            "charting.axisY2.abbreviation": "auto",
+            "charting.axisY2.maximumNumber": "20",
+            "charting.axisY2.enabled": "0",
+            "charting.axisY2.scale": "inherit",
+            "charting.chart": "column",
+            "charting.chart.bubbleMaximumSize": "50",
+            "charting.chart.bubbleMinimumSize": "10",
+            "charting.chart.bubbleSizeBy": "area",
+            "charting.chart.nullValueMode": "gaps",
+            "charting.chart.showDataLabels": "none",
+            "charting.chart.sliceCollapsingThreshold": "0.01",
+            "charting.chart.stackMode": "stacked",
+            "charting.chart.style": "shiny",
+            "charting.drilldown": "none",
+            "charting.layout.splitSeries": "0",
+            "charting.layout.splitSeries.allowIndependentYRanges": "0",
+            "charting.legend.labelStyle.overflowMode": "ellipsisMiddle",
+            "charting.legend.mode": "standard",
+            "charting.legend.placement": "right",
+            "charting.lineWidth": "2",
+            "trellis.enabled": "0",
+            "trellis.scales.shared": "1",
+            "trellis.size": "medium",
+            "managerid": "search1",
+            "el": $('#element1')
+        }, {tokens: true, tokenNamespace: "submitted"}).render();
+
+
+        var element4 = new ChartElement({
+            "id": "element4",
+            "resizable": true,
+            "charting.axisLabelsX.majorLabelStyle.overflowMode": "ellipsisNone",
+            "charting.axisLabelsX.majorLabelStyle.rotation": "0",
+            "charting.axisLabelsX.majorUnit": "5",
+            "charting.axisTitleX.visibility": "collapsed",
+            "charting.axisTitleY.visibility": "rps",
+            "charting.axisTitleY.visibility": "visible",
+            "charting.axisTitleY2.visibility": "visible",
+            "charting.axisX.abbreviation": "none",
+            "charting.axisX.scale": "linear",
+            "charting.axisY.abbreviation": "none",
+            "charting.axisY.scale": "linear",
+            "charting.axisY2.abbreviation": "auto",
+            "charting.axisY2.maximumNumber": "20",
+            "charting.axisY2.enabled": "0",
+            "charting.axisY2.scale": "inherit",
+            "charting.chart": "column",
+            "charting.chart.bubbleMaximumSize": "50",
+            "charting.chart.bubbleMinimumSize": "10",
+            "charting.chart.bubbleSizeBy": "area",
+            "charting.chart.nullValueMode": "gaps",
+            "charting.chart.showDataLabels": "none",
+            "charting.chart.sliceCollapsingThreshold": "0.01",
+            "charting.chart.stackMode": "stacked",
+            "charting.chart.style": "shiny",
+            "charting.drilldown": "none",
+            "charting.layout.splitSeries": "0",
+            "charting.layout.splitSeries.allowIndependentYRanges": "0",
+            "charting.legend.labelStyle.overflowMode": "ellipsisMiddle",
+            "charting.legend.mode": "standard",
+            "charting.legend.placement": "right",
+            "charting.lineWidth": "2",
+            "trellis.enabled": "0",
+            "trellis.scales.shared": "1",
+            "trellis.size": "medium",
+            "managerid": "search1",
+            "el": $('#element1')
+        }, {tokens: true, tokenNamespace: "submitted"}).render();
 
         // Initialize time tokens to default
         if (!defaultTokenModel.has('earliest') && !defaultTokenModel.has('latest')) {

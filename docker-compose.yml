@@ -9,46 +9,63 @@ services:
         SPLUNK_PASSWORD: 5plunK99
     ports:
       - 8000:8000
+      - 8088:8088
     logging:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes:
+      - ./dockers/splunk/etc:/opt/splunk/etc      
 ###################################################################################
   nao_resiliente_bacen:
-    build: ./Bacen
+    build: 
+      context: ./Bacen
+      args:
+        port: 1001
     environment:
         Serilog__Properties__Application: Nao.Resiliente.Bacen
     ports:
-      - 1001:80
+      - 1001:1001
     logging:
       options:
         max-size: "10m"
         max-file: "10"
 ###################################################################################
   resiliente_bacen:
-    build: ./Bacen
+    build: 
+      context: ./Bacen
+      args:
+        port: 1501
     environment:
         Serilog__Properties__Application: Resiliente.Bacen
     ports:
-      - 1501:80
+      - 1501:1501
     logging:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes:
+      - ./Bacen/config:/app/config   
 ###################################################################################
   nao_resiliente_servico_a:
-    build: ./Nao.Resiliente.ServicoA
+    build: 
+      context: ./Nao.Resiliente.ServicoA
+      args:
+        port: 2001
     ports:
-      - 2001:80
+      - 2001:2001
     logging:
       options:
         max-size: "10m"
         max-file: "10"
 ###################################################################################
   resiliente_servico_a:
-    build: ./Resiliente.ServicoA
+    build: 
+      context: ./Resiliente.ServicoA
+      args:
+        port: 2501
     ports:
-      - 2501:80
+      - 2501:2501
     logging:
       options:
         max-size: "10m"
@@ -147,3 +164,17 @@ services:
         vault kv put secret/bacen 0_erro_timeout=0 1_erro_intermitente=0 2_erro_total=0
     depends_on: 
       - vault
+###################################################################################
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379
+###################################################################################
+  redis-browser:
+    build: ./dockers/redis-browser
+    restart: always
+    ports:
+      - 7843:7843
+    depends_on:
+      - redis

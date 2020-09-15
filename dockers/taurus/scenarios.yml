@@ -1,0 +1,13 @@
+---
+execution:
+- concurrency: 40
+  ramp-up: 10s
+  hold-for: 1m30s
+  scenario: simple
+
+scenarios:
+  simple:
+    think-time: 0.75
+    requests:
+    - http://nao_resiliente_Servico_a:2001/preco
+    - http://resiliente_service_A:2501/preco

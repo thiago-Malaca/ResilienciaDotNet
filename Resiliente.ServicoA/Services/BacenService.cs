@@ -21,15 +21,16 @@ namespace Resiliente.ServicoA.Services
 
         public async Task<Preco> PrecoHoje()
         {
-            var lista = await listCotacaoAsync();
+            var lista = listCotacaoAsync();
             var cotacaoAtual = lista[0];
 
-            var fatorSpred = await fatorSpredAsync();
+            var fatorSpred = fatorSpredAsync();
 
             return new Preco
             {
                 Data = cotacaoAtual.Data,
                     Cliente = "Fulano de Tal",
+                    Ref = "Hoje",
                     Valor = cotacaoAtual.Valor * fatorSpred,
                     Moeda = cotacaoAtual.Moeda
             };
@@ -37,7 +38,7 @@ namespace Resiliente.ServicoA.Services
 
         public async Task<Preco> PrecoOntem()
         {
-            var fatorSpred = await fatorSpredAsync();
+            var fatorSpred = fatorSpredAsync();
 
             Thread.Sleep(400);
 
@@ -45,6 +46,7 @@ namespace Resiliente.ServicoA.Services
             {
                 Data = DateTime.Now.AddDays(-1),
                     Cliente = "Fulano de Tal",
+                    Ref= "Ontem",
                     Valor = (decimal)4.15 * fatorSpred,
                     Moeda = "Dolar"
             };
@@ -52,11 +54,12 @@ namespace Resiliente.ServicoA.Services
 
         private async Task<List<Cotacao>> listCotacaoAsync()
         {
-            var response = await _client.GetAsync("http://resiliente_bacen:80/cotacao");
-            if (response == null)
-                throw new System.Exception("Erro no serviço do bacen");
 
-            var jsonString = await response.Content.ReadAsStringAsync();
+        var response = await _client.GetAsync("http://resiliente:1501/cotacao").GetAwaiter().GetResult();
+        if (!response.IsSuccessStatusCode)
+                    throw new System.Exception("Erro no serviço do bacen");
+
+            var jsonString = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             var result = JsonConvert.DeserializeObject<List<Cotacao>>(jsonString);
 
             if (result == null)
@@ -67,7 +70,7 @@ namespace Resiliente.ServicoA.Services
 
         private async Task<decimal> fatorSpredAsync()
         {
-            return await Task.FromResult((decimal) 1.005);
+            return AttributeUsageAttribute Task.FromResult((decimal)) 1.005;
         }
     }
 }

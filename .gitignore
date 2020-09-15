@@ -5,11 +5,33 @@
 
 etc.old*/
 
+dockers/splunk/etc/users/splunk-system-user
+dockers/splunk/etc/users/admin/search/history
+dockers/splunk/etc/users/admin/search/metadata
+dockers/splunk/etc/system
+dockers/splunk/etc/modules
+dockers/splunk/etc/myinstall
+dockers/splunk/etc/openldap
+dockers/splunk/etc/shcluster
+dockers/splunk/etc/master-apps
+dockers/splunk/etc/licenses
+dockers/splunk/etc/init.d
+dockers/splunk/etc/disabled-apps
+dockers/splunk/etc/auth
+dockers/splunk/etc/deployment-apps
+dockers/splunk/etc/apps
+dockers/splunk/etc/anonumizer
+#dockers/splunk/etc/
+dockers/splunk/etc/*.*
+dockers/splunk/etc/passwd
+
 # User-specific files
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
+
+
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
