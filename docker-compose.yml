@@ -34,7 +34,7 @@ services:
         max-file: "10"
 ###################################################################################
   resiliente_bacen:
-    build: 
+    build:
       context: ./Bacen 
       args:
         httpproxy: ${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}
@@ -52,7 +52,7 @@ services:
       - ./Bacen/config:/app/config   
 ###################################################################################
   nao_resiliente_servico_a:
-    build: 
+    build:
       context: ./Nao.Resiliente.ServicoA
       args:
           httpproxy: ${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}
@@ -66,7 +66,7 @@ services:
         max-file: "10"
 ###################################################################################
   resiliente_servico_a:
-    build: 
+    build:
       context: ./Resiliente.ServicoA
       args:
           httpproxy: ${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}
@@ -74,7 +74,7 @@ services:
           port: 2501
     ports:
       - 2501:2501
-    depends_on: 
+    depends_on:
       - eureka
       - rabbitmq
     logging:
