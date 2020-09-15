@@ -21,10 +21,10 @@ namespace Resiliente.ServicoA.Services
 
         public async Task<Preco> PrecoHoje()
         {
-            var lista = listCotacaoAsync();
+            var lista = await listCotacaoAsync();
             var cotacaoAtual = lista[0];
 
-            var fatorSpred = fatorSpredAsync();
+            var fatorSpred = await fatorSpredAsync();
 
             return new Preco
             {
@@ -38,7 +38,7 @@ namespace Resiliente.ServicoA.Services
 
         public async Task<Preco> PrecoOntem()
         {
-            var fatorSpred = fatorSpredAsync();
+            var fatorSpred = await fatorSpredAsync();
 
             Thread.Sleep(400);
 
@@ -58,7 +58,7 @@ namespace Resiliente.ServicoA.Services
             if (response == null)
                 throw new System.Exception("Erro no serviço do bacen");
 
-            var jsonString = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            var jsonString = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<List<Cotacao>>(jsonString);
 
             if (result == null)
@@ -69,7 +69,7 @@ namespace Resiliente.ServicoA.Services
 
         private async Task<decimal> fatorSpredAsync()
         {
-            return AttributeUsageAttribute Task.FromResult((decimal)) 1.005;
+            return AttributeUsageAttribute Task.FromResult((decimal) 1.005);
         }
     }
 }
