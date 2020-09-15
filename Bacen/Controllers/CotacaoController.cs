@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 using Bacen.Entities;
 using Bacen.Services;
-
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.FeatureManagement;
 
 namespace Bacen.Controllers
 {

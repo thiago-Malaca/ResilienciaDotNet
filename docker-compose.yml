@@ -187,5 +187,5 @@ services:
   #   restart: always
   #   ports:
   #     - 7843:7843
-  #   depends_on:
+  #   depends_on: 
   #     - redis

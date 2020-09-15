@@ -80,8 +80,7 @@ styles in <div> tags, similar to Bootstrap's grid system.
             </div>
         </div>
     </div>
-
-    <div id="row2" class="dashboard-row dashboard-row1">
+    <div id="row2" class="dashboard-row dashboard-row2">
         <div id="panel3" class="dashboard-cell" style="width: 50%;">
             <div class="dashboard-panel clearfix">
                 <h2 class="panel-title">Resiliente</h2>
@@ -273,7 +272,7 @@ var search2 = new SearchManager({
             "earliest_time": "rt-1m",
             "latest_time": "rt",
             "sample_ratio": 1,
-            "search": "| pivot Data__No_Resiliente RootObject count(RootObject) AS rps SPLITROW _time AS _time PERIOD second SPLITCOL Properties.StatusCode SORT 0 _time ROWSUMMARY 0 COLSUMMARY 0 SHOWOTHER 1",
+            "search": "| pivot Data__No_Resiliente_Bacen RootObject count(RootObject) AS rps SPLITROW _time AS _time PERIOD second SPLITCOL Properties.StatusCode SORT 0 _time ROWSUMMARY 0 COLSUMMARY 0 SHOWOTHER 1",
             "status_buckets": 0,
             "cancelOnUnload": true,
             "app": utils.getCurrentApp(),
@@ -289,7 +288,7 @@ var search3 = new SearchManager({
             "earliest_time": "rt-1m",
             "latest_time": "rt",
             "sample_ratio": 1,
-            "search": "| pivot Data__No_Resiliente RootObject count(RootObject) AS rps SPLITROW _time AS _time PERIOD second SPLITCOL Properties.StatusCode SORT 0 _time ROWSUMMARY 0 COLSUMMARY 0 SHOWOTHER 1",
+            "search": "| pivot Data__Resiliente RootObject count(RootObject) AS rps SPLITROW _time AS _time PERIOD second SPLITCOL Properties.StatusCode SORT 0 _time ROWSUMMARY 0 COLSUMMARY 0 SHOWOTHER 1",
             "status_buckets": 0,
             "cancelOnUnload": true,
             "app": utils.getCurrentApp(),
@@ -305,7 +304,7 @@ var search4 = new SearchManager({
             "earliest_time": "rt-1m",
             "latest_time": "rt",
             "sample_ratio": 1,
-            "search": "| pivot Data__No_Resiliente RootObject count(RootObject) AS rps SPLITROW _time AS _time PERIOD second SPLITCOL Properties.StatusCode SORT 0 _time ROWSUMMARY 0 COLSUMMARY 0 SHOWOTHER 1",
+            "search": "| pivot Data__Resiliente_Bacen RootObject count(RootObject) AS rps SPLITROW _time AS _time PERIOD second SPLITCOL Properties.StatusCode SORT 0 _time ROWSUMMARY 0 COLSUMMARY 0 NUMCOLS 1000 SHOWOTHER 0",
             "status_buckets": 0,
             "cancelOnUnload": true,
             "app": utils.getCurrentApp(),
