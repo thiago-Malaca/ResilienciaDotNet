@@ -19,7 +19,7 @@ services:
 ###################################################################################
   nao_resiliente_bacen:
     build: 
-      context: ./Bacen
+      context: ./Bacen 
       args:
         httpproxy: ${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}
         httpsproxy: ${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}
@@ -35,7 +35,7 @@ services:
 ###################################################################################
   resiliente_bacen:
     build: 
-      context: ./Bacen
+      context: ./Bacen 
       args:
         httpproxy: ${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}
         httpsproxy: ${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}
@@ -55,9 +55,9 @@ services:
     build: 
       context: ./Nao.Resiliente.ServicoA
       args:
-        httpproxy: ${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}
-        httpsproxy: ${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}
-        port: 2001
+          httpproxy: ${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}
+          httpsproxy: ${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}
+          port: 2001
     ports:
       - 2001:2001
     logging:
@@ -69,9 +69,9 @@ services:
     build: 
       context: ./Resiliente.ServicoA
       args:
-        httpproxy: ${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}
-        httpsproxy: ${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}
-        port: 2501
+          httpproxy: ${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}
+          httpsproxy: ${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}
+          port: 2501
     ports:
       - 2501:2501
     depends_on: 
