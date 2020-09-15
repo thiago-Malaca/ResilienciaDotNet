@@ -6,7 +6,6 @@
 etc.old*/
 
 # splunk/etc/**/*.js
-
 dockers/splunk/etc/users/splunk-system-user
 dockers/splunk/etc/users/admin/search/history
 dockers/splunk/etc/users/admin/search/metadata
@@ -26,6 +25,7 @@ dockers/splunk/etc/anonymizer
 # dockers/splunk/etc/
 dockers/splunk/etc/*.*
 dockers/splunk/etc/passwd
+
 
 # User-specific files
 *.suo

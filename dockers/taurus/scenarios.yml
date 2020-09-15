@@ -9,5 +9,5 @@ scenarios:
   simple:
     think-time: 0.75
     requests:
-    - http://nao_resiliente_Servico_a:2001/preco
-    - http://resiliente_service_a:2501/preco
+    - http://nao_resiliente_servico_a:2001/preco
+    - http://resiliente_servico_a:2501/preco

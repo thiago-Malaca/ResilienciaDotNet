@@ -54,9 +54,9 @@ namespace Resiliente.ServicoA.Services
 
         private async Task<List<Cotacao>> listCotacaoAsync()
         {
-            var response = await _client.GetAsync("http://resiliente:1501/cotacao").GetAwaiter().GetResult();
-            if (!response.IsSuccessStatusCode)
-                    throw new System.Exception("Erro no serviço do bacen");
+            var response = await _client.GetAsync("http://resiliente_bacen:1501/cotacao");
+            if (response == null)
+                throw new System.Exception("Erro no serviço do bacen");
 
             var jsonString = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             var result = JsonConvert.DeserializeObject<List<Cotacao>>(jsonString);

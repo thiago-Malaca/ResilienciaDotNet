@@ -55,7 +55,7 @@ namespace Bacen.Controllers
 
             if ((tempo / 10 % 20) == 0)
             {
-                Thread.Sleep((int) (tempo % 100) * 10 + 150);
+                Thread.Sleep((int)(tempo % 100) * 10 + 150);
                 throw new System.Exception("Erro de intermitente!");
             }
 
