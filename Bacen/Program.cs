@@ -16,7 +16,7 @@ namespace Bacen
 
         public static IConfiguration Configuration;
 
-        public static IConfiguration ConfigRefresh()
+        public static void Main(string[] args)
         {
             return new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory() + "/config/")
@@ -25,12 +25,7 @@ namespace Bacen
                 .AddEnvironmentVariables()
                 .AddConfigServer()
                 .Build();
-        }
-
-        public static void Main(string[] args)
-        {
-            Configuration = ConfigRefresh();
-
+    
             /* Adicionado a estrutura do try/catch abaixo para captura os erros de inicialização,
                erros que normalmente geram dor de cabeça para resolver. */
             Log.Logger = new LoggerConfiguration()

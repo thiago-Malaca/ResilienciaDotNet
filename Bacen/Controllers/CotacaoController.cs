@@ -38,7 +38,7 @@ namespace Bacen.Controllers
 
             var tempo = tempoEmMs();
 
-            Thread.Sleep((int) (tempo % 100) + 2500);
+            Thread.Sleep((int)(tempo % 100) + 2500);
             throw new System.Exception("Erro forçado!");
         }
 
@@ -62,7 +62,7 @@ namespace Bacen.Controllers
         private async Task<IEnumerable<Cotacao>> sucesso()
         {
             var tempo = tempoEmMs();
-            Thread.Sleep((int) (tempo % 50) + 550);
+            Thread.Sleep((int)(tempo % 50) + 550);
             var rng = new Random();
             return await Task.FromResult(Enumerable.Range(0, 2).Select(index => new Cotacao
             {
@@ -75,7 +75,7 @@ namespace Bacen.Controllers
         private long tempoEmMs()
         {
             var timeSpan = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0));
-            return (long) timeSpan.TotalMilliseconds;
+            return (long)timeSpan.TotalMilliseconds;
         }
     }
 }

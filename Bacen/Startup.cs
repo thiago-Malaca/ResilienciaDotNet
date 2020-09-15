@@ -1,9 +1,10 @@
+using Bacen.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.FeatureManagement;
+using Steeltoe.CloudFoundry.Connector.Redis;
 
 namespace Bacen
 {
@@ -19,7 +20,8 @@ namespace Bacen
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddFeatureManagement();
+            services.AddRedisConnectionMultiplexer(Configuration);
+            services.AddScoped<IFlagService, FlagService>();
 
             services.AddControllers();
         }

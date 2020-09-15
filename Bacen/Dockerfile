@@ -10,6 +10,8 @@ COPY . .
 RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
+ENV COMPlus_ThreadPool_ForceMinWorkerThreads=2000
+
 WORKDIR /app
 COPY --from=build /app/out ./
 
