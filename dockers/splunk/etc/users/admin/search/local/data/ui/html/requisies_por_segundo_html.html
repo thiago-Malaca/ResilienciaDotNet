@@ -382,17 +382,19 @@ var search4 = new SearchManager({
             "el": $('#element1')
         }, {tokens: true, tokenNamespace: "submitted"}).render();
 
+
         var element2 = new ChartElement({
             "id": "element2",
             "resizable": true,
             "charting.axisLabelsX.majorLabelStyle.overflowMode": "ellipsisNone",
             "charting.axisLabelsX.majorLabelStyle.rotation": "0",
-            "charting.axisLabelsX.majorUnit": "5",
+            "charting.axisLabelsY.majorUnit": "5",
             "charting.axisTitleX.visibility": "collapsed",
-            "charting.axisTitleY.visibility": "rps",
+            "charting.axisTitleY.text": "rps",
             "charting.axisTitleY.visibility": "visible",
             "charting.axisTitleY2.visibility": "visible",
-            "charting.axisX.abbreviation": "none",
+            "charting.axisX.abbreviation": "auto",
+            "charting.axisX.maximumNumber": "20",
             "charting.axisX.scale": "linear",
             "charting.axisY.abbreviation": "none",
             "charting.axisY.scale": "linear",
@@ -422,6 +424,7 @@ var search4 = new SearchManager({
             "managerid": "search2",
             "el": $('#element2')
         }, {tokens: true, tokenNamespace: "submitted"}).render();
+
 
         var element3 = new ChartElement({
             "id": "element3",
@@ -505,6 +508,7 @@ var search4 = new SearchManager({
             "managerid": "search4",
             "el": $('#element4')
         }, {tokens: true, tokenNamespace: "submitted"}).render();
+
 
         // Initialize time tokens to default
         if (!defaultTokenModel.has('earliest') && !defaultTokenModel.has('latest')) {
