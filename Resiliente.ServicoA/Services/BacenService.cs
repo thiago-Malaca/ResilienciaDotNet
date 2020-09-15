@@ -46,7 +46,7 @@ namespace Resiliente.ServicoA.Services
             {
                 Data = DateTime.Now.AddDays(-1),
                     Cliente = "Fulano de Tal",
-                    Ref= "Ontem",
+                    Ref = "Ontem",
                     Valor = (decimal)4.15 * fatorSpred,
                     Moeda = "Dolar"
             };
@@ -54,9 +54,8 @@ namespace Resiliente.ServicoA.Services
 
         private async Task<List<Cotacao>> listCotacaoAsync()
         {
-
-        var response = await _client.GetAsync("http://resiliente:1501/cotacao").GetAwaiter().GetResult();
-        if (!response.IsSuccessStatusCode)
+            var response = await _client.GetAsync("http://resiliente:1501/cotacao").GetAwaiter().GetResult();
+            if (!response.IsSuccessStatusCode)
                     throw new System.Exception("Erro no serviço do bacen");
 
             var jsonString = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();

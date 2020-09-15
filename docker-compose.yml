@@ -21,6 +21,8 @@ services:
     build: 
       context: ./Bacen
       args:
+        httpproxy: ${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}
+        httpSproxy: ${HTTPs_PROXY_HOST}:${HTTPs_PROXY_PORT}
         port: 1001
     environment:
         Serilog__Properties__Application: Nao.Resiliente.Bacen
@@ -35,6 +37,8 @@ services:
     build: 
       context: ./Bacen
       args:
+        httpproxy: ${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}
+        httpSproxy: ${HTTPs_PROXY_HOST}:${HTTPs_PROXY_PORT}
         port: 1501
     environment:
         Serilog__Properties__Application: Resiliente.Bacen
@@ -51,6 +55,8 @@ services:
     build: 
       context: ./Nao.Resiliente.ServicoA
       args:
+        httpproxy: ${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}
+        httpSproxy: ${HTTPs_PROXY_HOST}:${HTTPs_PROXY_PORT}
         port: 2001
     ports:
       - 2001:2001
@@ -63,9 +69,14 @@ services:
     build: 
       context: ./Resiliente.ServicoA
       args:
+        httpproxy: ${HTTP_PROXY_HOST}:${HTTP_PROXY_PORT}
+        httpSproxy: ${HTTPs_PROXY_HOST}:${HTTPs_PROXY_PORT}
         port: 2501
     ports:
       - 2501:2501
+    depends_on: 
+      - eureka
+      - rabbitmq
     logging:
       options:
         max-size: "10m"
@@ -171,10 +182,10 @@ services:
     ports:
       - 6379:6379
 ###################################################################################
-  redis-browser:
-    build: ./dockers/redis-browser
-    restart: always
-    ports:
-      - 7843:7843
-    depends_on:
-      - redis
+  # redis-browser:
+  #   build: ./dockers/redis-browser
+  #   restart: always
+  #   ports:
+  #     - 7843:7843
+  #   depends_on:
+  #     - redis
