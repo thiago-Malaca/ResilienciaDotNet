@@ -69,7 +69,7 @@ namespace Resiliente.ServicoA.Services
 
         private async Task<decimal> fatorSpredAsync()
         {
-            return await AttributeUsageAttribute Task.FromResult((decimal) 1.005);
+            return await Task.FromResult((decimal) 1.005);
         }
     }
 }
