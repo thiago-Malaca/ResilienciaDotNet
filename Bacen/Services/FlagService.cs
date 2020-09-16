@@ -4,7 +4,6 @@ using Microsoft.Extensions.Caching.Distributed;
 using StackExchange.Redis;
 using Bacen.Extensions;
 
-
 namespace Bacen.Services
 {
     public class FlagService : IFlagService
@@ -15,13 +14,14 @@ namespace Bacen.Services
         {
             _cache = conn.GetDatabase();
         }
-        public Get(string chave)
+
+        public bool Get(string chave)
         {
             var valor = _cache.StringGet(chave).ToString();
             return valor.ParseInt() > 0;
         }
 
-        public Set(string chave, int valor)
+        public bool Set(string chave, int valor)
         {
             return _cache.StringSet(chave, valor);
         }

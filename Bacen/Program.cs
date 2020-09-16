@@ -25,7 +25,7 @@ namespace Bacen
                 .AddEnvironmentVariables()
                 .AddConfigServer()
                 .Build();
-    
+
             /* Adicionado a estrutura do try/catch abaixo para captura os erros de inicialização,
                erros que normalmente geram dor de cabeça para resolver. */
             Log.Logger = new LoggerConfiguration()

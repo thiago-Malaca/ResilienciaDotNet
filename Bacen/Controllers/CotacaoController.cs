@@ -38,7 +38,7 @@ namespace Bacen.Controllers
 
             var tempo = tempoEmMs();
 
-            Thread.Sleep((int)(tempo % 100) + 2500);
+            Thread.Sleep((int)(tempo % 100) + 250);
             throw new System.Exception("Erro forçado!");
         }
 

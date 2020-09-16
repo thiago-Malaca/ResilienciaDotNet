@@ -22,7 +22,6 @@ namespace Bacen
         {
             services.AddRedisConnectionMultiplexer(Configuration);
             services.AddScoped<IFlagService, FlagService>();
-
             services.AddControllers();
         }
 
