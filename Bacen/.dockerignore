@@ -1,6 +1,6 @@
 
 # Created by https://www.gitignore.io/api/csharp
-# Edit at https://www.gitignore.io?templates=csharp
+# Edit at https://www.gitignore.io/?templates=csharp
 
 ### Csharp ###
 ## Ignore Visual Studio temporary files, build results, and
@@ -131,7 +131,7 @@ _ReSharper*/
 *.[Rr]e[Ss]harper
 *.DotSettings.user
 
-# JustCode is a build add-in
+# JustCode is a .NET coding add-in
 .JustCode
 
 # TeamCity is a build add-in
@@ -358,11 +358,13 @@ MigrationBackup/
 .git
 .gitignore
 LICENSE
+VERSION
 README.md
 Changelog.md
-Markfile
+Makefile
 Dockerfile*
 **/*.trx
 **/*.md
 docker-compose.yml
 docs
+
