@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.FeatureManagement;
 
 using Resiliente.ServicoA.Commands;
 using Resiliente.ServicoA.Services;
@@ -14,10 +13,8 @@ using Resiliente.ServicoA.Services;
 using Steeltoe.CircuitBreaker.Hystrix;
 using Steeltoe.Discovery.Client;
 using Steeltoe.Management.Endpoint.Env;
-// using Steeltoe.Management.CloudFoundry;
 using Steeltoe.Management.Endpoint.Health;
 using Steeltoe.Management.Endpoint.Info;
-using Steeltoe.Management.Endpoint.Loggers;
 using Steeltoe.Management.Endpoint.Mappings;
 using Steeltoe.Management.Endpoint.Metrics;
 using Steeltoe.Management.Endpoint.Refresh;
@@ -36,8 +33,6 @@ namespace Resiliente.ServicoA
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddFeatureManagement();
-
             services.AddHystrixCommand<BacenCommand>("BacenCommand", Configuration);
 
             services.AddDiscoveryClient(Configuration);

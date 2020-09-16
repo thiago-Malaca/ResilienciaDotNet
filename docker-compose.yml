@@ -41,7 +41,7 @@ services:
         httpsproxy: ${HTTPS_PROXY_HOST}:${HTTPS_PROXY_PORT}
         port: 1501
     environment:
-        Serilog__Properties__Application: Resiliente.Bacen
+      Serilog__Properties__Application: Resiliente.Bacen
     ports:
       - 1501:1501
     logging:
@@ -172,7 +172,7 @@ services:
         while ! $$(vault status &> /dev/null); do echo "Trying to connect to vault"; sleep 2; done
         sleep 5
         vault login $${VAULT_DEV_ROOT_TOKEN_ID}
-        vault kv put secret/bacen 0_erro_timeout=0 1_erro_intermitente=0 2_erro_total=0
+        vault kv put secret/application connection_string_test=postgresql://user:password@domain:port/db
     depends_on: 
       - vault
 ###################################################################################

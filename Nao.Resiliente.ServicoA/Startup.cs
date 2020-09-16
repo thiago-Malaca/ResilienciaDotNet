@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.FeatureManagement;
 
 using Nao.Resiliente.ServicoA.Services;
 
@@ -22,8 +21,6 @@ namespace Nao.Resiliente.ServicoA
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IBacenService, BacenService>();
-
-            services.AddFeatureManagement();
 
             services.AddControllers();
         }

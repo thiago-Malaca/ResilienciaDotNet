@@ -18,7 +18,7 @@ namespace Bacen
 
         public static void Main(string[] args)
         {
-            return new ConfigurationBuilder()
+            Configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory() + "/config/")
                 .AddJsonFile("appsettings.json", optional : false, reloadOnChange : true)
                 .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional : false, reloadOnChange : true)
